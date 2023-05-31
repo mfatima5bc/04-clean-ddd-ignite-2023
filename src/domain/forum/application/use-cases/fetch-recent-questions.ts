@@ -1,5 +1,5 @@
-import { Question } from "../../enterprise/entities/question";
-import { QuestionRepository } from "../repositories/questions-repository";
+import { Question } from '../../enterprise/entities/question'
+import { QuestionRepository } from '../repositories/questions-repository'
 
 interface FetchRecentQuestionsUseCaseRequest {
   page: number
@@ -15,10 +15,10 @@ export class FetchRecentQuestionsUseCase {
   async execute({
     page,
   }: FetchRecentQuestionsUseCaseRequest): Promise<FetchRecentQuestionsUseCaseResponse> {
-    const questions = await this.quesitonsRepository.findManyRecent({ page }) 
+    const questions = await this.quesitonsRepository.findManyRecent({ page })
 
     return {
-      questions
+      questions,
     }
   }
 }
