@@ -33,7 +33,7 @@ describe('Delete Answer Comment', () => {
 
     await inMemoryAnswerCommentsRepository.create(answerComment)
 
-    expect(() => {
+    await expect(() => {
       return sut.execute({
         answerCommentId: answerComment.id.toString(),
         authorId: 'author-2',
