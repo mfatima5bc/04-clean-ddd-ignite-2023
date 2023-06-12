@@ -1,11 +1,17 @@
+import { ResponseType, error, success } from '@/core/response-type'
 import { AnswerRepository } from '../repositories/answers-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 interface DeleteAnswerUseCaseRequest {
   authorId: string
   answerId: string
 }
 
-interface DeleteAnswerUseCaseResponse {}
+type DeleteAnswerUseCaseResponse = ResponseType<
+  ResourceNotFoundError | NotAllowedError,
+  {}
+>
 
 export class DeleteAnswerUseCase {
   constructor(private answerRepository: AnswerRepository) {}
@@ -17,15 +23,15 @@ export class DeleteAnswerUseCase {
     const answer = await this.answerRepository.findById(answerId)
 
     if (!answer) {
-      throw new Error('Answer not found.')
+      return error(new ResourceNotFoundError())
     }
 
     if (answer.authorId.toString() !== authorId) {
-      throw new Error('Not allowed.')
+      return error(new NotAllowedError())
     }
 
     await this.answerRepository.delete(answer)
 
-    return {}
+    return success({})
   }
 }

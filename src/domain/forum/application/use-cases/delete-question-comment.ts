@@ -1,11 +1,17 @@
+import { ResponseType, error, success } from '@/core/response-type'
 import { QuestionCommentRepository } from '@/domain/forum/application/repositories/question-comments-repository'
+import { NotAllowedError } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface DeleteQuestionCommentUseCaseRequest {
   authorId: string
   questionCommentId: string
 }
 
-interface DeleteQuestionCommentUseCaseResponse {}
+type DeleteQuestionCommentUseCaseResponse = ResponseType<
+  ResourceNotFoundError | NotAllowedError,
+  {}
+>
 
 export class DeleteQuestionCommentUseCase {
   constructor(private questionCommentsRepository: QuestionCommentRepository) {}
@@ -19,15 +25,15 @@ export class DeleteQuestionCommentUseCase {
     )
 
     if (!questionComment) {
-      throw new Error('Question comment not found.')
+      return error(new ResourceNotFoundError())
     }
 
     if (questionComment.authorId.toString() !== authorId) {
-      throw new Error('Not allowed')
+      return error(new NotAllowedError())
     }
 
     await this.questionCommentsRepository.delete(questionComment)
 
-    return {}
+    return success({})
   }
 }

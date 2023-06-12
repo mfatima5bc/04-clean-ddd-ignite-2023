@@ -1,3 +1,4 @@
+import { ResponseType, success } from '@/core/response-type'
 import { QuestionComment } from '../../enterprise/entities/question-comment'
 import { QuestionCommentRepository } from '../repositories/question-comments-repository'
 
@@ -6,9 +7,12 @@ interface FetchQuestionCommentsUseCaseRequest {
   page: number
 }
 
-interface FetchQuestionCommentsUseCaseResponse {
-  questionComments: QuestionComment[]
-}
+type FetchQuestionCommentsUseCaseResponse = ResponseType<
+  null,
+  {
+    questionComments: QuestionComment[]
+  }
+>
 
 export class FetchQuestionCommentsUseCase {
   constructor(private questionCommentsRepository: QuestionCommentRepository) {}
@@ -22,8 +26,8 @@ export class FetchQuestionCommentsUseCase {
         page,
       })
 
-    return {
+    return success({
       questionComments,
-    }
+    })
   }
 }

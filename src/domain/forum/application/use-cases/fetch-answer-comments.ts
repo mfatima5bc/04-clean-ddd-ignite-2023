@@ -1,14 +1,18 @@
 import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
 import { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
+import { ResponseType, success } from '@/core/response-type'
 
 interface FetchAnswerCommentsUseCaseRequest {
   answerId: string
   page: number
 }
 
-interface FetchAnswerCommentsUseCaseResponse {
-  answerComments: AnswerComment[]
-}
+type FetchAnswerCommentsUseCaseResponse = ResponseType<
+  null,
+  {
+    answerComments: AnswerComment[]
+  }
+>
 
 export class FetchAnswerCommentsUseCase {
   constructor(private answerCommentsRepository: AnswerCommentsRepository) {}
@@ -22,8 +26,8 @@ export class FetchAnswerCommentsUseCase {
         page,
       })
 
-    return {
+    return success({
       answerComments,
-    }
+    })
   }
 }

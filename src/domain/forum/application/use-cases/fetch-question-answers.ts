@@ -1,3 +1,4 @@
+import { ResponseType, success } from '@/core/response-type'
 import { Answer } from '../../enterprise/entities/answer'
 import { AnswerRepository } from '../repositories/answers-repository'
 
@@ -6,9 +7,12 @@ interface FetchQuestionAnswersAnswersUseCaseRequest {
   page: number
 }
 
-interface FetchQuestionAnswersAnswersUseCaseResponse {
-  answers: Answer[]
-}
+type FetchQuestionAnswersAnswersUseCaseResponse = ResponseType<
+  null,
+  {
+    answers: Answer[]
+  }
+>
 
 export class FetchQuestionAnswersAnswersUseCase {
   constructor(private answersRepository: AnswerRepository) {}
@@ -22,8 +26,8 @@ export class FetchQuestionAnswersAnswersUseCase {
       { page },
     )
 
-    return {
+    return success({
       answers,
-    }
+    })
   }
 }

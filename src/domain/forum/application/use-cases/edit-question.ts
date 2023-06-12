@@ -1,9 +1,15 @@
+import { ResponseType, error, success } from '@/core/response-type'
 import { Question } from '../../enterprise/entities/question'
 import { QuestionRepository } from '../repositories/questions-repository'
+import { NotAllowedError } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-interface EditQuestionUseCaseResponse {
-  question: Question
-}
+type EditQuestionUseCaseResponse = ResponseType<
+  ResourceNotFoundError | NotAllowedError,
+  {
+    question: Question
+  }
+>
 
 interface EditQuestionUseCaseRequest {
   authorId: string
@@ -24,11 +30,11 @@ export class EditQuestionUseCase {
     const question = await this.questionsRepository.findById(questionId)
 
     if (!question) {
-      throw new Error('Question not found')
+      return error(new ResourceNotFoundError())
     }
 
     if (question.authorId.toString() !== authorId) {
-      throw new Error('Not allowed.')
+      return error(new NotAllowedError())
     }
 
     question.title = title
@@ -36,8 +42,8 @@ export class EditQuestionUseCase {
 
     await this.questionsRepository.save(question)
 
-    return {
+    return success({
       question,
-    }
+    })
   }
 }
