@@ -24,7 +24,7 @@ describe('Get question by slug', () => {
     })
 
     expect(result.isSuccess()).toBe(true)
-    
+
     if (result.isSuccess()) {
       expect(result.value?.question.id).toBeTruthy()
       expect(result.value?.question.title).toEqual(newQuestion.title)
