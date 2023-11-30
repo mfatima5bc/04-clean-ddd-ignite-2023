@@ -1,6 +1,6 @@
-import { InMemoryAnswerRepository } from 'test/in-memory-answer-repository'
+import { InMemoryAnswerRepository } from 'test/repositories/in-memory-answer-repository'
 import { AnswerQuestionUseCase } from './answer-question'
-import { InMemoryAnswerAttachmentsRepository } from 'test/in-memory-answer-attachments-repository'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository

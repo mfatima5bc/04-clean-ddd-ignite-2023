@@ -1,15 +1,15 @@
 /* eslint-disable no-new */
-import { InMemoryAnswerAttachmentsRepository } from 'test/in-memory-answer-attachments-repository'
-import { InMemoryAnswerCommentsRepository } from 'test/in-memory-answer-comments-repository'
-import { InMemoryAnswerRepository } from 'test/in-memory-answer-repository'
-import { InMemoryNotificationsRepository } from 'test/in-memory-notifications-repository'
-import { InMemoryQuestionRepository } from 'test/in-memory-question-repository'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
+import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments-repository'
+import { InMemoryAnswerRepository } from 'test/repositories/in-memory-answer-repository'
+import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-notifications-repository'
+import { InMemoryQuestionRepository } from 'test/repositories/in-memory-question-repository'
 import {
   SendNotificationUseCase,
   SendNotificationUseCaseRequest,
   SendNotificationUseCaseResponse,
 } from '../use-cases/send-notification'
-import { InMemoryQuestionAttachmentsRepository } from 'test/in-memory-question-attachments-repository'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
 import { OnAnswerCommentEvent } from './on-answer-comment-event'
 import { makeQuestion } from 'test/factories/make-question'
 import { makeAnswer } from 'test/factories/make-answer'
